@@ -4,7 +4,7 @@ body {
     background-color: #97c497;
 }
 
-#botaoInicial {
+.botoesInicio {
     font-family: sans-serif;
     border: none;
 
@@ -12,8 +12,29 @@ body {
     font-size: 25px;
 }
 
+#btnComecar {
+    margin-top: 300px;
+}
+
+#btnRecomecar {
+    display: none;
+    margin-left: 50%;
+}
+
 .containerCartas {
     text-align: center;
     margin-top: 80px;
+}
+
+.containerOpcoes {
+    text-align: center;
+}
+
+#containerGeral {
+    display: none;
+}
+
+#btnRecomecar {
+    display: none;
 }
 

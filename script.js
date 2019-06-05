@@ -15,6 +15,13 @@ class Carta {
 }
 
 function inicioRodada() {
+
+    document.getElementById('btnComecar').style.display="none";
+    document.getElementById('btnComecar').style.transition="250ms";
+
+    document.getElementById('containerGeral').style.display="block";
+
+
     cartasJogador = new Array();
     cartasJogador[0] = new Carta();
     cartasJogador[1] = new Carta();
@@ -48,7 +55,15 @@ function atualizaJogo() {
     document.getElementById('somaJogador').innerHTML = "Soma: " + somaCartas(cartasJogador);
 }
 
-
+function manter() {
+    //vez do computador fazer suas jogadas. A decisão do computador pegar mais uma carta ou não é randômica.
+    if (somaCartas(cartasMaquina) <= 10) novaCarta(cartasMaquina);
+    else {
+        const decisao = Math.random();
+        if (decisao > 0.5) novaCarta(cartasMaquina);
+    }
+    console.log("pronto");
+}
 
 function mostraValores() {
     for (let i = 0; i < length(cartasJogador); i ++) {
@@ -60,15 +75,25 @@ function mostraValores() {
     }
 }
 
-function novaCarta(vetor) {
-    if (length(vetor) <= 4) {
-        vetor[length(vetor)] = new Carta();
+function novaCarta(vet) {
+    if (length(vet) <= 4) {
+        vet[length(vet)] = new Carta();
         mostraValores();
         atualizaJogo();
     }
-    if (somaCartas(vetor) == 21) {
-        document.getElementById('resultadoFinal').innerHTML = "BlackJack!"
-        location.reload();
-    }
+    resultado(vet);
 }
 
+function reload() {
+    location.reload()
+}
+
+function resultado(vet) {
+    if (somaCartas(vet) == 21) {
+        document.getElementById('resultadoFinal').innerHTML = "BlackJack!"
+        document.getElementById('btnRecomecar').style.display="block";
+    } else if (somaCartas(vet) > 21) {
+        document.getElementById('resultadoFinal').innerHTML = "Passou do limite!";
+        document.getElementById('btnRecomecar').style.display="block";
+    }
+}
