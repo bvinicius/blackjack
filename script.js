@@ -46,15 +46,16 @@ function somaCartas(vet) {
 
 function atualizaJogo() {
     document.getElementById('somaJogador').innerHTML = "Soma: " + somaCartas(cartasJogador);
-    document.getElementById('somaMaquina').innerHTML = "Soma: " + somaCartas(cartasMaquina);
 }
+
+
 
 function mostraValores() {
     for (let i = 0; i < length(cartasJogador); i ++) {
         document.getElementById('jCarta'+i).innerHTML = cartasJogador[i].valor;
     }
 
-    for (let i = 0; i < length(cartasMaquina); i ++) {
+    for (let i = 0; i < length(cartasMaquina) - 1; i ++) {
         document.getElementById('mCarta'+i).innerHTML = cartasMaquina[i].valor;
     }
 }
@@ -64,6 +65,10 @@ function novaCarta(vetor) {
         vetor[length(vetor)] = new Carta();
         mostraValores();
         atualizaJogo();
+    }
+    if (somaCartas(vetor) == 21) {
+        document.getElementById('resultadoFinal').innerHTML = "BlackJack!"
+        location.reload();
     }
 }
 
