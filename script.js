@@ -14,42 +14,56 @@ class Carta {
     }
 }
 
-function inicio() {
-    var cartasJogador = new Array();
+function inicioRodada() {
+    cartasJogador = new Array();
     cartasJogador[0] = new Carta();
     cartasJogador[1] = new Carta();
 
-    for (let i = 0; i < length(cartasJogador); i ++) {
-        document.getElementById('jCarta'+i).innerHTML = cartasJogador[i].valor;
-    }
-
-    var cartasMaquina = new Array();
+    cartasMaquina = new Array();
     cartasMaquina[0] = new Carta();
     cartasMaquina[1] = new Carta();
 
-    for (let i = 0; i < length(cartasMaquina); i ++) {
-        document.getElementById('mCarta'+i).innerHTML = cartasMaquina[i].valor;
-    }
+    mostraValores();
 
-    document.getElementById('somaJogador').innerHTML = "Soma: " + somaCartas(cartasJogador);
-    document.getElementById('somaMaquina').innerHTML = "Soma: " + somaCartas(cartasMaquina);
+    atualizaJogo();
 }
 
-function length(a) {
+function length(vet) {
     var cont = 0;
-    for (let i = 0; a[i] != null; i ++) {
+    for (let i = 0; vet[i] != null; i ++) {
         cont = i;
     }
     return cont + 1;
 }
 
-function somaCartas(a) {
+function somaCartas(vet) {
     let soma = 0;
-    for (let i = 0; i < length(a); i ++) {
-        soma += a[i].valor;
+    for (let i = 0; i < length(vet); i ++) {
+        soma += vet[i].valor;
     }
     return soma;
 }
 
+function atualizaJogo() {
+    document.getElementById('somaJogador').innerHTML = "Soma: " + somaCartas(cartasJogador);
+    document.getElementById('somaMaquina').innerHTML = "Soma: " + somaCartas(cartasMaquina);
+}
 
+function mostraValores() {
+    for (let i = 0; i < length(cartasJogador); i ++) {
+        document.getElementById('jCarta'+i).innerHTML = cartasJogador[i].valor;
+    }
+
+    for (let i = 0; i < length(cartasMaquina); i ++) {
+        document.getElementById('mCarta'+i).innerHTML = cartasMaquina[i].valor;
+    }
+}
+
+function novaCarta(vetor) {
+    if (length(vetor) <= 4) {
+        vetor[length(vetor)] = new Carta();
+        mostraValores();
+        atualizaJogo();
+    }
+}
 

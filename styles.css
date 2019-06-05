@@ -1,0 +1,19 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: #97c497;
+}
+
+#botaoInicial {
+    font-family: sans-serif;
+    border: none;
+
+    background-color: lightgray;
+    font-size: 25px;
+}
+
+.containerCartas {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
