@@ -1,3 +1,5 @@
+let jogadorAtual;
+
 class Carta {
     constructor() {
         this.sorteia();
@@ -55,14 +57,24 @@ function atualizaJogo() {
     document.getElementById('somaJogador').innerHTML = "Soma: " + somaCartas(cartasJogador);
 }
 
-function manter() {
+function jogadaMaquina() {
     //vez do computador fazer suas jogadas. A decisão do computador pegar mais uma carta ou não é randômica.
-    if (somaCartas(cartasMaquina) <= 10) novaCarta(cartasMaquina);
-    else {
-        const decisao = Math.random();
-        if (decisao > 0.5) novaCarta(cartasMaquina);
+
+    jogadorAtual = cartasMaquina;
+
+    while (somaCartas(cartasMaquina) < 10) {
+        console.log("Vai pegar nova carta");
+        setTimeout(novaCarta(cartasMaquina), 1000);
     }
-    console.log("pronto");
+
+    if (somaCartas(cartasMaquina) <= 17) {
+        const decisao = Math.random();
+        console.log("Talvez pega nova carta");
+        if (decisao > 0.5) setTimeout(novaCarta(cartasMaquina),1000);
+    }
+
+    mostraValores();
+    //finalizaJogo();
 }
 
 function mostraValores() {
@@ -81,19 +93,30 @@ function novaCarta(vet) {
         mostraValores();
         atualizaJogo();
     }
-    resultado(vet);
+    verificaJogo();
 }
 
 function reload() {
     location.reload()
 }
 
-function resultado(vet) {
-    if (somaCartas(vet) == 21) {
-        document.getElementById('resultadoFinal').innerHTML = "BlackJack!"
-        document.getElementById('btnRecomecar').style.display="block";
-    } else if (somaCartas(vet) > 21) {
-        document.getElementById('resultadoFinal').innerHTML = "Passou do limite!";
-        document.getElementById('btnRecomecar').style.display="block";
+function verificaJogo() {
+    if (jogadorAtual == cartasMaquina) {
+        if (somaCartas(cartasMaquina) == 21) {
+            document.getElementById('finalMaquina').innerHTML = "BlackJack"
+        } else if (somaCartas(cartasMaquina > 21)) {
+            document.getElementById('finalMaquina').innerHTML = "Passou!"
+        }
+    } else {
+        if (somaCartas(cartasJogador) == 21) {
+            document.getElementById('finalJogador').innerHTML = "BlackJack"
+        } else if (somaCartas(cartasJogador > 21)) {
+            document.getElementById('finalJogador').innerHTML = "Passou!"
+        }
     }
+
+}
+
+function finalizaJogo() {
+
 }
