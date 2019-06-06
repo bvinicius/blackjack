@@ -34,19 +34,19 @@ function somaDasCartas(vet) {
 //métodos da execução
 function verificaSoma() {
     if (somaDasCartas(cartasJogador) == 21) {
-        document.getElementById('finalJogador').innerHTML = "BlackJack!";
-        //encerraJogo();
+        document.getElementById('somaJogador').innerHTML += " (BJ)";
+        
     } else if (somaDasCartas(cartasJogador) > 21) {
-        document.getElementById('finalJogador').innerHTML = "Perdeu!";
-        //encerraJogo();
+        document.getElementById('somaJogador').innerHTML += " (Busted)";
+        encerraJogo();
     }
 
     if (somaDasCartas(cartasMaquina) == 21) {
-        document.getElementById('finalMaquina').innerHTML = "BlackJack!";
-        //encerraJogo();
+        document.getElementById('somaMaquina').innerHTML += " (BJ)";
+        encerraJogo();
     } else if (somaDasCartas(cartasMaquina) > 21) {
-        document.getElementById('finalMaquina').innerHTML = "Perdeu!";
-        //encerraJogo();
+        document.getElementById('somaMaquina').innerHTML += " (Busted)";
+        encerraJogo();
     }
 }
 
@@ -104,7 +104,7 @@ function jogadaMaquina() {
 
     console.log("Jogada do computador.");
 
-    if (somaDasCartas(cartasMaquina) > 17 && somaDasCartas(cartasMaquina) <= 20) {
+    if (somaDasCartas(cartasMaquina) > 17 && somaDasCartas(cartasMaquina) <= 19) {
         const c = Math.random();
         if (c > 0.6) {
             setTimeout(cartasMaquina[1].abre(),500);
@@ -117,11 +117,24 @@ function jogadaMaquina() {
         }
     }
     cartasMaquina[1].abre();
+    
+    document.getElementById('somaMaquina').innerHTML = "Soma: " + somaDasCartas(cartasMaquina);
     mostraValores()
+    verificaSoma();
+
+    encerraJogo();
 }
 
 function encerraJogo() {
-    
- 
+    if (somaDasCartas(cartasJogador) <= 21 && somaDasCartas(cartasMaquina) <= 21) {
+        if (somaDasCartas(cartasJogador) > somaDasCartas(cartasMaquina)) {
+            document.getElementById('resultadoFinal').innerHTML = "Você venceu!";
+        } else if (somaDasCartas(cartasJogador) < somaDasCartas(cartasMaquina)) {
+            document.getElementById('resultadoFinal').innerHTML = "Vitória da máquina!"
+        } else document.getElementById('resultadoFinal').innerHTML = "Empate!"
+    }
+
+    console.log("jogo encerrado");
+    //volta para as posições iniciais de layout.
 }
 
