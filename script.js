@@ -35,17 +35,17 @@ function somaDasCartas(vet) {
 function verificaSoma() {
     if (somaDasCartas(cartasJogador) == 21) {
         document.getElementById('somaJogador').innerHTML += " (BJ)";
-        
+        document.getElementById('btnPesca').style.display = "none";
     } else if (somaDasCartas(cartasJogador) > 21) {
-        document.getElementById('somaJogador').innerHTML += " (Busted)";
-        encerraJogo();
+        document.getElementById('somaJogador').innerHTML += " (Bust)";
+        document.getElementById('btnPesca').style.display = "none";
     }
 
     if (somaDasCartas(cartasMaquina) == 21) {
         document.getElementById('somaMaquina').innerHTML += " (BJ)";
         encerraJogo();
     } else if (somaDasCartas(cartasMaquina) > 21) {
-        document.getElementById('somaMaquina').innerHTML += " (Busted)";
+        document.getElementById('somaMaquina').innerHTML += " (Bust)";
         encerraJogo();
     }
 }
@@ -104,6 +104,8 @@ function jogadaMaquina() {
 
     console.log("Jogada do computador.");
 
+    document.getElementById('btnPesca').style.display = "none";
+
     if (somaDasCartas(cartasMaquina) > 17 && somaDasCartas(cartasMaquina) <= 19) {
         const c = Math.random();
         if (c > 0.6) {
@@ -132,9 +134,14 @@ function encerraJogo() {
         } else if (somaDasCartas(cartasJogador) < somaDasCartas(cartasMaquina)) {
             document.getElementById('resultadoFinal').innerHTML = "Vitória da máquina!"
         } else document.getElementById('resultadoFinal').innerHTML = "Empate!"
-    }
+    } else if (somaDasCartas(cartasMaquina) > 21 && somaDasCartas(cartasJogador) <= 21) {
+        document.getElementById('resultadoFinal').innerHTML = "Você venceu!";
+    } else if (somaDasCartas(cartasJogador) > 21 && somaDasCartas(cartasMaquina) <= 21) {
+        document.getElementById('resultadoFinal').innerHTML = "Vitória da máquina!";
+    } else document.getElementById('resultadoFinal').innerHTML = "Empate!";
+
+    document.getElementById("reiniciarJogo").style.display = "block";
 
     console.log("jogo encerrado");
-    //volta para as posições iniciais de layout.
 }
 

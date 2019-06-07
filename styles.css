@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
-    text-align: center;
     background-color: #97c497;
+    text-align: center;
 }
 
 .botoesInicio {
@@ -36,5 +36,12 @@ body {
 
 #btnRecomecar {
     display: none;
+}
+
+#reiniciarJogo {
+    display: none;
+    margin-right: 50%;
+    margin-left: 50%;
+    width: 10%;
 }
 
