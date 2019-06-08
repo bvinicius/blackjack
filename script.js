@@ -31,8 +31,37 @@ function somaDasCartas(vet) {
     return soma;
 }
 
+function existeAs(vet) {
+    for (let i = 0; i < vet.length; i ++) {
+        if (vet[i].valor == 1) return true;
+    }
+    return false;
+}
+
+function indiceAs(vet) {
+    for (let i = 0; i < vet.length; i ++) {
+        if (vet[i].valor == 1) return i;
+    }
+    return -1;
+}
+
 //métodos da execução
 function verificaSoma() {
+
+    if (existeAs(cartasJogador)) {
+        if (somaDasCartas(cartasJogador) <= 11) {
+            let i = indiceAs(cartasJogador);
+            cartasJogador[i].valor = 11;
+        }
+    }
+
+    if (existeAs(cartasMaquina)) {
+        if (somaDasCartas(cartasMaquina) <= 11) {
+            let i = indiceAs(cartasMaquina);
+            cartasMaquina[i].valor = 11;
+        }
+    }
+
     if (somaDasCartas(cartasJogador) == 21) {
         document.getElementById('somaJogador').innerHTML += " (BJ)";
         document.getElementById('btnPesca').style.display = "none";
@@ -50,6 +79,41 @@ function verificaSoma() {
         document.getElementById('somaMaquina').innerHTML += " (Bust)";
         encerraJogo();
     }
+}
+
+function mostraValores() {
+
+    let refe = document.getElementById('jCarta0');
+    refe.innerText = "";
+    let refm = document.getElementById('mCarta0');
+    refm.innerText = "";
+
+    for(let i = 0; i < cartasJogador.length; i ++) {
+        if (cartasJogador[i].valor == 1 || cartasJogador[i].valor == 11 ) refe.innerText += " |A| "
+        else refe.innerText += " |" + cartasJogador[i]._valor + "| ";
+    }
+
+    for(let i = 0; i < cartasMaquina.length; i ++) {
+        if (cartasMaquina[i].estaAberta()) {
+            if (cartasMaquina[i].valor == 1 || cartasMaquina[i].valor == 11) refm.innerText += " |A| "
+            else refm.innerText += " |" + cartasMaquina[i]._valor + "| ";
+        } else {
+            document.getElementById('mCarta0').innerText += ' |X|';
+        }
+    }
+
+    if (existeAs(cartasJogador)) {
+        let s = somaDasCartas(cartasJogador);
+        document.getElementById('somaJogador').innerHTML = "Pontuação: " + s + "/" + (s + 10);
+    } else {
+        document.getElementById('somaJogador').innerHTML = "Pontuação: " + somaDasCartas(cartasJogador);
+    }
+}
+
+function pescaCarta(vet) {
+    vet[vet.length] = new Carta();
+    mostraValores()
+    verificaSoma();
 }
 
 function inicioJogo() {
@@ -73,42 +137,16 @@ function inicioJogo() {
     verificaSoma();
 }
 
-function mostraValores() {
-
-    let refe = document.getElementById('jCarta0');
-    refe.innerText = "";
-    let refm = document.getElementById('mCarta0');
-    refm.innerText = "";
-
-    for(let i = 0; i < cartasJogador.length; i ++) {
-        refe.innerText += " |" + cartasJogador[i]._valor + "| ";
-    }
-
-    for(let i = 0; i < cartasMaquina.length; i ++) {
-        if (cartasMaquina[i].estaAberta()) {
-            refm.innerText += " |" + cartasMaquina[i]._valor + "| " ;
-        } else {
-            document.getElementById('mCarta0').innerText += ' |X|';
-        }
-    }
-
-    document.getElementById('somaJogador').innerHTML = "Pontuação: " + somaDasCartas(cartasJogador);
-}
-
-function pescaCarta(vet) {
-    vet[vet.length] = new Carta();
-    mostraValores()
-    verificaSoma();
-}
-
 //jogada da máquina
 function jogadaMaquina() {
     /*vez do computador fazer suas jogadas. A decisão do computador pegar ou não mais uma carta,
     depois da soma das cartas atingir 17, é randômica.*/
 
+    verificaSoma();
+
     document.getElementById('btnPesca').style.display = "none";
 
-    if (somaDasCartas(cartasMaquina) > 17 && somaDasCartas(cartasMaquina) <= 19  ) {
+    if (somaDasCartas(cartasMaquina) >= 17 && somaDasCartas(cartasMaquina) <= 19  ) {
         const c = Math.random();
         if (c > 0.6) {
             setTimeout(cartasMaquina[1].abre(),500);
@@ -130,6 +168,7 @@ function jogadaMaquina() {
         ref.innerText += " |" + cartasMaquina[i]._valor + "| " ;
     }
     verificaSoma();
+    mostraValores();
     encerraJogo();
 }
 
