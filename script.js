@@ -36,9 +36,11 @@ function verificaSoma() {
     if (somaDasCartas(cartasJogador) == 21) {
         document.getElementById('somaJogador').innerHTML += " (BJ)";
         document.getElementById('btnPesca').style.display = "none";
+        encerraJogo();
     } else if (somaDasCartas(cartasJogador) > 21) {
         document.getElementById('somaJogador').innerHTML += " (Bust)";
         document.getElementById('btnPesca').style.display = "none";
+        encerraJogo();
     }
 
     if (somaDasCartas(cartasMaquina) == 21) {
@@ -72,28 +74,30 @@ function inicioJogo() {
 }
 
 function mostraValores() {
-    for (let i = 0; i < cartasJogador.length; i ++) {
-        if (cartasJogador[i].estaAberta()) {
-            document.getElementById('jCarta'+i).innerHTML = cartasJogador[i].valor;
-        } else {
-            document.getElementById('jCarta'+i).innerHTML = 'x';
-        }
+
+    let refe = document.getElementById('jCarta0');
+    refe.innerText = "";
+    let refm = document.getElementById('mCarta0');
+    refm.innerText = "";
+
+    for(let i = 0; i < cartasJogador.length; i ++) {
+        refe.innerText += " |" + cartasJogador[i]._valor + "| ";
     }
 
     for(let i = 0; i < cartasMaquina.length; i ++) {
         if (cartasMaquina[i].estaAberta()) {
-            document.getElementById('mCarta'+i).innerHTML = cartasMaquina[i].valor;
+            refm.innerText += " |" + cartasMaquina[i]._valor + "| " ;
         } else {
-            document.getElementById('mCarta'+i).innerHTML = 'x';
+            document.getElementById('mCarta0').innerText += ' |X|';
         }
     }
 
-    document.getElementById('somaJogador').innerHTML = "Soma: " + somaDasCartas(cartasJogador);
+    document.getElementById('somaJogador').innerHTML = "Pontuação: " + somaDasCartas(cartasJogador);
 }
 
 function pescaCarta(vet) {
     vet[vet.length] = new Carta();
-    mostraValores();
+    mostraValores()
     verificaSoma();
 }
 
@@ -102,11 +106,9 @@ function jogadaMaquina() {
     /*vez do computador fazer suas jogadas. A decisão do computador pegar ou não mais uma carta,
     depois da soma das cartas atingir 17, é randômica.*/
 
-    console.log("Jogada do computador.");
-
     document.getElementById('btnPesca').style.display = "none";
 
-    if (somaDasCartas(cartasMaquina) > 17 && somaDasCartas(cartasMaquina) <= 19) {
+    if (somaDasCartas(cartasMaquina) > 17 && somaDasCartas(cartasMaquina) <= 19  ) {
         const c = Math.random();
         if (c > 0.6) {
             setTimeout(cartasMaquina[1].abre(),500);
@@ -120,10 +122,14 @@ function jogadaMaquina() {
     }
     cartasMaquina[1].abre();
     
-    document.getElementById('somaMaquina').innerHTML = "Soma: " + somaDasCartas(cartasMaquina);
-    mostraValores()
-    verificaSoma();
+    document.getElementById('somaMaquina').innerHTML = "Pontuação: " + somaDasCartas(cartasMaquina);
 
+    let ref = document.getElementById('mCarta0');
+    ref.innerText = "";
+    for(let i = 0; i < cartasMaquina.length; i ++) {
+        ref.innerText += " |" + cartasMaquina[i]._valor + "| " ;
+    }
+    verificaSoma();
     encerraJogo();
 }
 
@@ -140,8 +146,7 @@ function encerraJogo() {
         document.getElementById('resultadoFinal').innerHTML = "Vitória da máquina!";
     } else document.getElementById('resultadoFinal').innerHTML = "Empate!";
 
-    document.getElementById("reiniciarJogo").style.display = "block";
-
-    console.log("jogo encerrado");
+    document.getElementById("reiniciarJogo").style.display = "flex";
+    document.getElementById("btnJogadaMaqunia").style.display = "none";
 }
 
