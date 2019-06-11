@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./script.js"></script>
+    <title>Black Jack</title>
+</head>
+<body>
+    <button id="btnComecar" class="botoesInicio btn btn-dark " type="button" onclick="inicioJogo()">Começar!</button>
+    <h1 id="title" > THE MOST INCREDIBLE BLACKJACK GAME EVER MADE </h1>
+    <div id="containerGeral">
+        <div id="containerPlayerInfo">
+            <div class="containerCartas">
+                <h2>Cartas do dealer:</h4>
+                <h3 id="mCarta0" class="valorCarta"></h3>
+                <h2 id="somaMaquina"></h2>
+    
+            </div>
+    
+            <div class="containerResultado">
+                <h1 id="resultadoFinal"></h1>
+                <button id="reiniciarJogo" class="btn btn-success" onclick="location.reload()">Jogar Novamente</h1>
+            </div>
+    
+            <div class="containerCartas">
+                <h2>Suas cartas:</h4>
+                <h3 id="jCarta0" class="valorCarta"></h3>
+                <h2 id="somaJogador"></h2>
+            </div>
+        </div>
+        <div class="containerOpcoes">
+            <button id = "btnPesca" class="btn btn-primary" type="button" onclick="pescaCarta(cartasJogador)">Pescar</button>
+            <button id="btnJogadaMaqunia" class="btn btn-danger" type="button" onclick="jogadaMaquina()">Manter</button>
+        </div>
+    </div>
+    
+
+</body>
+</html>
