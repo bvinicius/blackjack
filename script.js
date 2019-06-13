@@ -1,7 +1,29 @@
+class Baralho {
+    constructor() {
+       this.cartas = [];
+
+        for (let i = 1; i <= 13; i ++) {
+            for (let j = 1; j <= 4; j ++) {
+                if (i > 10) this.cartas.push(10);
+                else this.cartas.push(i);
+            }
+        }
+    }
+
+    removeCarta() {
+        let r = getRandom(0, this.cartas.length);
+        let cartaEscolhida = this.cartas[r];
+        this.cartas.splice(r, 1);
+        return cartaEscolhida;
+    }
+}
+
+let b1 = new Baralho();
+
 class Carta {
     constructor() {
-        this.sorteia();
         this._aberta = true;
+        this._valor = b1.removeCarta();
     }
 
     get valor() {return this._valor;}
@@ -15,11 +37,7 @@ class Carta {
     fecha() {this._aberta = false;}
     abre() {this._aberta = true;}
 
-    sorteia() {
-        var v = Math.floor(Math.random() * 13) + 1;
-        if (v >= 10) this.valor = 10;
-        else this.valor = v;
-    }
+    
 }
 
 //métodos auxiliares:
@@ -109,14 +127,20 @@ function mostraValores() {
     }
 }
 
+function getRandom(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
 function pescaCarta(vet) {
     vet[vet.length] = new Carta();
+
     mostraValores();
     verificaSoma();
 }
 
 function inicioJogo() {
-
     document.getElementById('btnComecar').style.display="none";
     document.getElementById('btnComecar').style.transition="250ms";
 
@@ -131,12 +155,19 @@ function inicioJogo() {
     cartasMaquina[0] = new Carta();
     cartasMaquina[1] = new Carta();
         cartasMaquina[1].fecha();
+
+    console.log(cartasJogador);
+
+    console.log(cartasMaquina);
+
+    console.log(b1.cartas);
     
     mostraValores();
     verificaSoma();
 }
 
 //jogada da máquina
+
 function jogadaMaquina() {
     /*vez do computador fazer suas jogadas. A decisão do computador pegar ou não mais uma carta,
     depois da soma das cartas atingir 17, é randômica.*/
