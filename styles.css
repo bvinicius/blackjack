@@ -9,6 +9,10 @@ body {
     justify-content: center;
 }
 
+#audio {
+    display: none;
+}
+
 #title{
     position: absolute;
     display: block;
