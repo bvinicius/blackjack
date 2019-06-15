@@ -11,7 +11,7 @@ class Baralho {
     }
 
     removeCarta() {
-        let r = getRandom(0, this.cartas.length);
+        let r = getRandom(0, this.cartas.length-1);
         let cartaEscolhida = this.cartas[r];
         this.cartas.splice(r, 1);
         return cartaEscolhida;
@@ -154,8 +154,6 @@ function mostraValores() {
     }
 }
 
-
-
 function pescaCarta(vet) {
     vet[vet.length] = new Carta();
 
@@ -179,19 +177,11 @@ function inicioJogo() {
 
     cartasMaquina[0] = new Carta();
     cartasMaquina[1] = new Carta();
-        cartasMaquina[1].fecha();
-
-    console.log(cartasJogador);
-
-    console.log(cartasMaquina);
-
-    console.log(b1.cartas);
+    cartasMaquina[1].fecha();
     
     verificaSoma();
     mostraValores();
     verificaSoma();
-
-
 }
 
 //jogada da máquina
@@ -219,12 +209,11 @@ function jogadaMaquina() {
     verificaSoma();
     mostraValores();
     verificaSoma();
-
     encerraJogo();
 }
 
 function encerraJogo() {
-    
+    document.getElementById('btnPesca').style.display = "none";
     if (somaDasCartas(cartasJogador) <= 21 && somaDasCartas(cartasMaquina) <= 21) {
         if (somaDasCartas(cartasJogador) > somaDasCartas(cartasMaquina)) {
             document.getElementById('resultadoFinal').innerHTML = "Você venceu!";
