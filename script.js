@@ -214,6 +214,7 @@ function jogadaMaquina() {
 
 function encerraJogo() {
     document.getElementById('btnPesca').style.display = "none";
+    document.getElementById('stopBtn').style.display = "none";
     if (somaDasCartas(cartasJogador) <= 21 && somaDasCartas(cartasMaquina) <= 21) {
         if (somaDasCartas(cartasJogador) > somaDasCartas(cartasMaquina)) {
             document.getElementById('resultadoFinal').innerHTML = "Você venceu!";
@@ -228,5 +229,13 @@ function encerraJogo() {
 
     document.getElementById("reiniciarJogo").style.display = "flex";
     document.getElementById("btnJogadaMaqunia").style.display = "none";
+}
+
+function stop () {
+    encerraJogo();
+    document.getElementById('resultadoFinal').innerText = " Jogo Finalizado !"
+    document.getElementById("reiniciarJogo").style.display = "flex";
+    document.getElementById("j1").style.display = "none";
+    document.getElementById("m1").style.display = "none";
 }
 
