@@ -215,6 +215,7 @@ function jogadaMaquina() {
 function encerraJogo() {
     document.getElementById('btnPesca').style.display = "none";
     document.getElementById('stopBtn').style.display = "none";
+        cartasMaquina[1].abre();
     if (somaDasCartas(cartasJogador) <= 21 && somaDasCartas(cartasMaquina) <= 21) {
         if (somaDasCartas(cartasJogador) > somaDasCartas(cartasMaquina)) {
             document.getElementById('resultadoFinal').innerHTML = "Você venceu!";
